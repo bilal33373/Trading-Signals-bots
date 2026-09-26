@@ -1,6 +1,6 @@
 import ccxt
 import pandas as pd
-import pandas_ta as ta
+import ta
 import requests
 import os
 from datetime import datetime
@@ -30,9 +30,10 @@ def get_signal(symbol):
     try:
         ohlcv = exchange.fetch_ohlcv(symbol, TIMEFRAME, limit=100)
         df = pd.DataFrame(ohlcv, columns=['time','open','high','low','close','volume'])
-        df['ema_fast'] = ta.ema(df['close'], length=9)
-        df['ema_slow'] = ta.ema(df['close'], length=21)
-        df['rsi'] = ta.rsi(df['close'], length=14)
+        
+        df['ema_fast'] = ta.trend.EMAIndicator(df['close'], window=9).ema_indicator()
+        df['ema_slow'] = ta.trend.EMAIndicator(df['close'], window=21).ema_indicator()
+        df['rsi'] = ta.momentum.RSIIndicator(df['close'], window=14).rsi()
         
         last = df.iloc[-1]
         prev = df.iloc[-2]
