@@ -10,14 +10,14 @@ TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 TIMEFRAME = "5m"
 
 PAIRS = {
-    "BTC/USD": "BTC/USDT",
-    "EUR/GBP": "EURGBP",
-    "EUR/USD": "EURUSD",
-    "GBP/USD": "GBPUSD",
-    "GBP/EUR": "GBPEUR",
+    "BTC/USD": "BTC/USD",
+    "EUR/GBP": "EUR/GBP",
+    "EUR/USD": "EUR/USD",
+    "GBP/USD": "GBP/USD",
+    "GBP/EUR": "GBP/EUR",
 }
 
-exchange = ccxt.binance()
+exchange = ccxt.kraken()
 
 def send_telegram(msg):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
